@@ -9,6 +9,6 @@ namespace Labb.Features.Blog.BlogListPage
         {
         }
 
-        public IEnumerable<BlogPage.BlogPage> Blogs { get; set; }
+        public IEnumerable<BlogPage.BlogPage>? Blogs { get; set; }
     }
 }

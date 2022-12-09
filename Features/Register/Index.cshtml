@@ -1,0 +1,21 @@
+﻿@using Labb.Features.Shared;
+@using Labb.Features.Register;
+@model ComposedPageViewModel<RegisterPage, RegisterPageViewModel>
+
+<h1>Register</h1>
+
+<form asp-controller="RegisterPage" asp-action="Register">
+    <div>
+        @Html.LabelFor(x => x.ViewModel.UserName)
+        @Html.TextBoxFor(x => x.ViewModel.UserName)
+        @* <label>Username</label> *@
+        @* <input/> *@
+    </div>
+    <div>
+        @Html.LabelFor(x => x.ViewModel.Password)
+        @Html.TextBoxFor(x => x.ViewModel.Password)
+        @* <label>Password</label> *@
+        @* <input/> *@
+    </div>
+    <button>Register</button>
+</form>

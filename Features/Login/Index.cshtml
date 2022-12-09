@@ -1,0 +1,17 @@
+﻿@using Labb.Features.Shared;
+@using Labb.Features.Login;
+@model ComposedPageViewModel<LoginPage, LoginPageViewModel>
+
+<h1>Login</h1>
+
+<form asp-controller="LoginPage" asp-action="Login" method="post" name="model">
+    <div>
+        @Html.LabelFor(x => x.ViewModel.Username)
+        @Html.TextBoxFor(x => x.ViewModel.Username)
+    </div>
+    <div>
+        @Html.LabelFor(x => x.ViewModel.Password)
+        @Html.TextBoxFor(x => x.ViewModel.Password)
+    </div>
+    <button type="submit">Login</button>
+</form>

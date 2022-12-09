@@ -1,0 +1,13 @@
+﻿@using EPiServer.Web.Mvc.Html;
+@model IEnumerable<PageData>
+
+<div class="header">
+    <nav class="nav">
+        <div class="nav-items">
+            @foreach (var i in Model)
+            {
+                <a class="nav-item" href="@Url.ContentUrl(i.PageLink)">@i.Name</a>
+            }
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,9 @@
+﻿@using Labb.Features.Blog.BlogListPage;
+@model BlogListPageViewModel;
+
+<h1>This is a blog page</h1>
+
+@foreach(var i in Model.Blogs)
+{
+    <h1>@i.Title</h1>
+}   

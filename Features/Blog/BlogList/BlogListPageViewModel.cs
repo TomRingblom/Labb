@@ -1,7 +1,7 @@
-﻿using Labb.Features.Blog.BlogPage;
+﻿using Labb.Features.Blog.Blog;
 using Labb.Features.Shared;
 
-namespace Labb.Features.Blog.BlogListPage
+namespace Labb.Features.Blog.BlogList
 {
     public class BlogListPageViewModel : ContentViewModel<BlogListPage>
     {
@@ -9,6 +9,6 @@ namespace Labb.Features.Blog.BlogListPage
         {
         }
 
-        public IEnumerable<BlogPage.BlogPage>? Blogs { get; set; }
+        public IEnumerable<BlogPage>? Blogs { get; set; }
     }
 }

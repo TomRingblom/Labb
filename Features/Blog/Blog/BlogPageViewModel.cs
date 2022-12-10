@@ -1,6 +1,6 @@
 ﻿using Labb.Features.Shared;
 
-namespace Labb.Features.Blog.BlogPage
+namespace Labb.Features.Blog.Blog
 {
     public class BlogPageViewModel : ContentViewModel<BlogPage>
     {

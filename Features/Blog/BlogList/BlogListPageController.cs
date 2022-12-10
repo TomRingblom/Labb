@@ -1,8 +1,9 @@
 ﻿using EPiServer.Shell;
 using EPiServer.Web.Mvc;
+using Labb.Features.Blog.Blog;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Labb.Features.Blog.BlogListPage
+namespace Labb.Features.Blog.BlogList
 {
     public class BlogListPageController : PageController<BlogListPage>
     {
@@ -17,10 +18,10 @@ namespace Labb.Features.Blog.BlogListPage
         {
             var model = new BlogListPageViewModel(currentContent)
             {
-                Blogs = _contentRepository.GetChildren<BlogPage.BlogPage>(currentContent.ContentLink)
+                Blogs = _contentRepository.GetChildren<BlogPage>(currentContent.ContentLink)
             };
 
-            return View("~/Features/Blog/BlogListPage/Index.cshtml", model);
+            return View("~/Features/Blog/BlogList/Index.cshtml", model);
         }
     }
 }

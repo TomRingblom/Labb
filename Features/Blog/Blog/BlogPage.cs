@@ -2,7 +2,7 @@
 using Labb.Features.Shared;
 using System.ComponentModel.DataAnnotations;
 
-namespace Labb.Features.Blog.BlogPage
+namespace Labb.Features.Blog.Blog
 {
     [ContentType(
         GUID = "cafa74c8-c6bb-4050-9bf4-edc67b532528",

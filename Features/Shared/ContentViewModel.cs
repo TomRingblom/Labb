@@ -6,7 +6,7 @@ namespace Labb.Features.Shared
     public class ContentViewModel<TContent> : IContentViewModel<TContent> where TContent : IContent
     {
         private Injected<IContentLoader> _contentLoader;
-        private HomePage _startPage;
+        private HomePage? _startPage;
 
         public ContentViewModel() : this(default)
         {

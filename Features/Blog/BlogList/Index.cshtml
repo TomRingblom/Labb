@@ -1,0 +1,15 @@
+﻿@using Labb.Features.Blog.BlogList;
+@using EPiServer.Web.Mvc.Html;
+@model BlogListPageViewModel;
+
+<h1>This is a blog list page</h1>
+
+@if (Model.Blogs != null)
+{
+    @foreach(var i in Model.Blogs)
+    {
+        <a href="@Url.ContentUrl(i.ContentLink)"><h1>@i.Title</h1></a>
+        <p>@i.Preamble</p>
+        <p>@i.Author</p>
+    }
+}

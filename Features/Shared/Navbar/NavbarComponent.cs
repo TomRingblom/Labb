@@ -1,4 +1,7 @@
 ﻿using EPiServer.Web.Mvc;
+using EPiServer.Web.Mvc.Html;
+using Labb.Features.Home;
+using Labb.Features.User.MyProfile;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labb.Features.Shared.Navbar
@@ -14,10 +17,20 @@ namespace Labb.Features.Shared.Navbar
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var root = _contentRepository.GetChildren<LabbPageData>(ContentReference.RootPage).Where(x => x.VisibleInMenu);
-            var start = _contentRepository.GetChildren<LabbPageData>(ContentReference.StartPage).Where(x => x.VisibleInMenu);
-            var navItems = root.Concat(start).ToList();
-            return View("~/Features/Shared/Navbar/_Navbar.cshtml", navItems);
+            var underRoot = _contentRepository.GetChildren<HomePage>(ContentReference.RootPage).Where(x => x.VisibleInMenu);
+            var underStart = _contentRepository.GetChildren<LabbPageData>(ContentReference.StartPage).Where(x => x.VisibleInMenu);
+            var navItems = underRoot.Concat(underStart).ToList();
+            var myProfile = _contentRepository.GetChildren<MyProfilePage>(ContentReference.StartPage).FirstOrDefault();
+
+            var model = new NavbarViewModel
+            {
+                NavItems = navItems,
+                SignInUrl = Url.ContentUrl(underRoot.FirstOrDefault()?.ContentLink) + "SignIn",
+                SignOutUrl = Url.ContentUrl(underRoot.FirstOrDefault()?.ContentLink) + "SignOut",
+                MyProfileUrl = Url.ContentUrl(myProfile?.ContentLink)
+            };
+
+            return await Task.FromResult(View("~/Features/Shared/Navbar/Default.cshtml", model));
         }
     }
 }

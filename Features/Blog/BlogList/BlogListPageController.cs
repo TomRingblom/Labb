@@ -21,7 +21,7 @@ namespace Labb.Features.Blog.BlogList
                 Blogs = _contentRepository.GetChildren<BlogPage>(currentContent.ContentLink)
             };
 
-            return View("~/Features/Blog/BlogList/Index.cshtml", model);
+            return View(model);
         }
     }
 }

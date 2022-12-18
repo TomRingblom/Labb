@@ -9,7 +9,8 @@ namespace Labb.Features.Home;
 
 public class HomePageController : PageController<HomePage>
 {
-    public ActionResult Index(HomePage currentContent) => View("~/Features/Home/Index.cshtml", ContentViewModel.Create(currentContent));
+	//"~/Features/Home/Index.cshtml"
+	public ActionResult Index(HomePage currentContent) => View(ContentViewModel.Create(currentContent));
 
     public ActionResult SignIn()
     {

@@ -8,8 +8,7 @@ namespace Labb.Features.Blog.Blog
     {
         public ActionResult Index(BlogPage currentContent)
         {
-            var model = new BlogPageViewModel(currentContent);
-            return View("~/Features/Blog/Blog/Index.cshtml", model);
+            return View(new BlogPageViewModel(currentContent));
         }
     }
 }

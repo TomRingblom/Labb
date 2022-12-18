@@ -5,9 +5,7 @@
 <h1>This is home</h1>
 
 @{
-    var user = User.Claims.ToString();
-    var user2 = User.Identity.IsAuthenticated;
+    var user = User?.Identity?.IsAuthenticated;
 }
 
 <p>@user</p>
-<p>@user2</p>

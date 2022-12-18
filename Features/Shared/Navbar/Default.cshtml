@@ -1,16 +1,17 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using EPiServer.Web.Mvc.Html;
-@model IEnumerable<PageData>
-@{
-    var startPage = Model.FirstOrDefault();
-}
+@using Labb.Features.Shared.Navbar;
+@model NavbarViewModel
 
 <div class="header">
     <nav class="nav">
         <div class="nav-items">
-            @foreach (var i in Model)
+            @if(Model.NavItems != null)
             {
-                <a class="nav-item" href="@Url.ContentUrl(i.PageLink)">@i.Name</a>
+                foreach (var i in Model.NavItems)
+                {
+                    <a class="nav-item" href="@Url.ContentUrl(i.PageLink)">@i.Name</a>
+                }
             }
         </div>
         @*<partial name="~/Features/Shared/Views/_LoginPartial.cshtml" model="Model"/>*@
@@ -22,13 +23,17 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="@Url.ContentUrl(startPage.ContentLink)SignOut">Sign out</a>
+                    <a class="nav-link text-dark" href="@Model.MyProfileUrl">My Profile</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="@Model.SignOutUrl">Sign out</a>
                 </li>
             }
             else
             {
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="@Url.ContentUrl(startPage.ContentLink)SignIn">Sign in</a>
+                    <a class="nav-link text-dark" href="@Model.SignInUrl">Sign in</a>
                 </li>
             }
         </ul>

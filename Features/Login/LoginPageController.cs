@@ -7,34 +7,36 @@ namespace Labb.Features.Login
 {
     public class LoginPageController : PageController<LoginPage>
     {
-        private readonly UIUserManager _userManager;
-        private readonly UISignInManager _signInManager;
+        //private readonly UIUserManager _userManager;
+        //private readonly UISignInManager _signInManager;
 
-        public LoginPageController(UIUserManager userManager, UISignInManager signInManager)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-        }
+        //public LoginPageController(UIUserManager userManager, UISignInManager signInManager)
+        //{
+        //    _userManager = userManager;
+        //    _signInManager = signInManager;
+        //}
 
         public IActionResult Index(LoginPage currentPage)
         {
-            var viewModel = new ComposedPageViewModel<LoginPage, LoginPageViewModel>
-            {
-                Page = currentPage,
-                ViewModel = new LoginPageViewModel()
-            };
-            return View("~/Features/Login/Index.cshtml", viewModel);
+            //var viewModel = new ComposedPageViewModel<LoginPage, LoginPageViewModel>
+            //{
+            //    Page = currentPage,
+            //    ViewModel = new LoginPageViewModel()
+            //};
+            //return View("~/Features/Login/Index.cshtml", viewModel);
+            return View("~/Features/Login/Index.cshtml", new LoginPageViewModel());
         }
 
+        [HttpPost]
         public IActionResult Login(LoginPageViewModel model)
         {
-            var signin = _signInManager.SignInAsync(model.Username, model.Password);
-            if (signin.IsCompletedSuccessfully)
-            {
-                //Yay
-            }
+            //var signin = _signInManager.SignInAsync(model.Username, model.Password);
+            //if (signin.IsCompletedSuccessfully)
+            //{
+            //    //Yay
+            //}
 
-            return View();
+            return View("~/Features/Login/Index.cshtml");
         }
     }
 }

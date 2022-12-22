@@ -1,6 +1,7 @@
 ﻿using EPiServer.Web.Mvc;
 using Labb.Features.Shared;
 using Microsoft.AspNetCore.Mvc;
+// ReSharper disable Mvc.ViewNotResolved
 
 namespace Labb.Features.Blog.Blog
 {

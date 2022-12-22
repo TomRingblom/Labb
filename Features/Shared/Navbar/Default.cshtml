@@ -3,7 +3,62 @@
 @using Labb.Features.Shared.Navbar;
 @model NavbarViewModel
 
-<div class="header">
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @if(Model.NavItems != null)
+                {
+                    foreach (var i in Model.NavItems)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.ContentUrl(i.PageLink)">@i.Name</a>
+                        </li>
+                    }
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="@Model.MyProfileUrl">My Profile</a></li>
+                            <li><a class="dropdown-item" href="@Model.SignOutUrl">Sign out</a></li>
+                            <li><a class="dropdown-item" href="/episerver/cms">Backoffice</a></li>
+                        </ul>
+                    </li>
+                    @*<li class="nav-item">
+                        <span class="navbar-text text-dark">Hello @User.Identity.Name!</span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="@Model.MyProfileUrl">My Profile</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="@Model.SignOutUrl">Sign out</a>
+                    </li>*@
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="@Model.SignInUrl">Sign in</a>
+                    </li>
+                }
+            </ul>
+            <div class="">
+                
+            </div>
+        </div>
+    </div>
+</nav>
+
+@*<div class="header">
     <nav class="nav">
         <div class="nav-items">
             @if(Model.NavItems != null)
@@ -14,7 +69,7 @@
                 }
             }
         </div>
-        @*<partial name="~/Features/Shared/Views/_LoginPartial.cshtml" model="Model"/>*@
+        <partial name="~/Features/Shared/Views/_LoginPartial.cshtml" model="Model"/>
         <ul class="navbar-nav">
             @if (User.Identity.IsAuthenticated)
             {
@@ -38,4 +93,4 @@
             }
         </ul>
     </nav>
-</div>
+</div>*@

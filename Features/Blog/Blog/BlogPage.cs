@@ -1,6 +1,7 @@
 ﻿using EPiServer.Web;
 using Labb.Features.Shared;
 using System.ComponentModel.DataAnnotations;
+// ReSharper disable Mvc.TemplateNotResolved
 
 namespace Labb.Features.Blog.Blog
 {

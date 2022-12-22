@@ -1,17 +1,15 @@
-using EPiServer.Cms.Shell;
-using EPiServer.Cms.TinyMce;
-using EPiServer.Cms.UI.Admin;
-using EPiServer.Cms.UI.AspNetIdentity;
-using EPiServer.Cms.UI.VisitorGroups;
 using EPiServer.Scheduler;
 using EPiServer.Security;
 using EPiServer.ServiceLocation;
-using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
+using Geta.NotFoundHandler.Infrastructure.Configuration;
+using Geta.NotFoundHandler.Infrastructure.Initialization;
+using Geta.NotFoundHandler.Optimizely.Infrastructure.Configuration;
+using Geta.NotFoundHandler.Optimizely.Infrastructure.Initialization;
 using Labb.Infrastructure.Display;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
@@ -37,6 +35,7 @@ public class Startup
 
             services.Configure<SchedulerOptions>(options => options.Enabled = false);
         }
+
 		services.AddMvc(o =>
 		{
 			o.Conventions.Add(new FeatureConvention());
@@ -47,7 +46,8 @@ public class Startup
 			ro.ViewLocationFormats.Add("/Features/{0}/Default.cshtml"); //"{0}" represents the View Component Name"
 			ro.ViewLocationExpanders.Add(new FeatureViewLocationExpander());
 		});
-		services.AddCmsHost().AddCmsHtmlHelpers().AddCmsUI().AddAdmin().AddVisitorGroupsUI().AddTinyMce();
+
+		services.AddCms();
 
 		services.AddAuthentication(options =>
 		{
@@ -90,11 +90,32 @@ public class Startup
 			    return Task.FromResult(0);
 		    };
 	    });
+
+        services.AddNotFoundHandler(o =>
+        {
+            o.UseSqlServer(_configuration.GetConnectionString("EPiserverDB"));
+			//o.BufferSize = 30;
+			//o.ThreshHold = 5;
+			o.HandlerMode = FileNotFoundMode.On;
+			//o.IgnoredResourceExtensions = new[] { "jpg", "gif", "png", "css", "js", "ico", "swf", "woff" };
+			//o.Logging = LoggerMode.On;
+			//o.LogWithHostname = false;
+			//o.AddProvider<NullNotFoundHandlerProvider>();
+		});
+
+        services.AddOptimizelyNotFoundHandler(o =>
+        {
+            o.AutomaticRedirectsEnabled = true;
+        });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        if (env.IsDevelopment())
+        app.UseNotFoundHandler();
+        app.UseStatusCodePagesWithReExecute("/error/{0}");
+		app.UseOptimizelyNotFoundHandler();
+
+		if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
         }
@@ -104,9 +125,26 @@ public class Startup
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.UseEndpoints(endpoints =>
+		app.Map("/util/login", builder => builder.Run(context =>
+		{
+			context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties
+			{
+				RedirectUri = "/"
+			});
+			return Task.CompletedTask;
+		}));
+
+		app.Map("/util/logout", builder => builder.Run(context =>
+		{
+			context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			context.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+			return Task.CompletedTask;
+		}));
+
+		app.UseEndpoints(endpoints =>
         {
             endpoints.MapContent();
+            endpoints.MapRazorPages();
         });
     }
 }

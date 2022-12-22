@@ -1,5 +1,4 @@
-﻿using EPiServer.Web.Mvc;
-using EPiServer.Web.Mvc.Html;
+﻿using EPiServer.Web.Mvc.Html;
 using Labb.Features.Home;
 using Labb.Features.User.MyProfile;
 using Microsoft.AspNetCore.Mvc;

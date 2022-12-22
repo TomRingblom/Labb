@@ -1,0 +1,10 @@
+﻿@using EPiServer.Web.Mvc.Html;
+@using Labb.Features.Shared;
+@using Labb.Features.News;
+@model NewsPageViewModel
+
+
+<div class="container">
+    <a class="btn btn-primary mt-3" href="@Url.ContentUrl(Model.CurrentContent.ContentLink)AddBlock">Add Block</a>
+    @Html.DisplayFor(x => x.CurrentContent.Area, new { CssClass="row", ChildrenCssClass="col mt-3" } )
+</div>

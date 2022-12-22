@@ -1,0 +1,13 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using EPiServer.Web.Mvc.Html;
+@using Labb.Features.Blocks.CardBlock;
+@model CardBlockViewModel
+
+<div class="card" style="width: 18rem;">
+    <img src="@Model.ImageUrl" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">@Model.CurrentBlock.Title</h5>
+        <p class="card-text">@Model.CurrentBlock.Body</p>
+        <a href="@Model.DeleteUrl" class="btn btn-primary" block="@Model.CurrentBlock">Remove Block</a>
+    </div>
+</div>

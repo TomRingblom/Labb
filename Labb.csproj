@@ -14,6 +14,9 @@
   
   <ItemGroup>
     <PackageReference Include="EPiServer.CMS" Version="12.13.2" />
+    <PackageReference Include="Geta.NotFoundHandler" Version="5.0.1" />
+    <PackageReference Include="Geta.NotFoundHandler.Admin" Version="5.0.1" />
+    <PackageReference Include="Geta.NotFoundHandler.Optimizely" Version="5.0.1" />
     <PackageReference Include="jQuery" Version="3.6.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.12" />
   </ItemGroup>

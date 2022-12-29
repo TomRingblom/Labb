@@ -9,9 +9,10 @@ namespace Labb.Features.Home;
 
 public class HomePageController : PageController<HomePage>
 {
-	public ActionResult Index(HomePage currentContent) => View("~/Features/Home/Index.cshtml", ContentViewModel.Create(currentContent));
+	public ActionResult Index(HomePage currentContent) 
+        => View("~/Features/Home/Index.cshtml", ContentViewModel.Create(currentContent));
 
-    public ActionResult SignIn()
+    public ActionResult Login()
     {
         var redirectUrl = Url.ActionContext.HttpContext.Request.Scheme + "://" +
                           Url.ActionContext.HttpContext.Request.Host;
@@ -21,8 +22,10 @@ public class HomePageController : PageController<HomePage>
         }, OpenIdConnectDefaults.AuthenticationScheme);
     }
 
-    public ActionResult SignOut()
+    public ActionResult Logout()
     {
-        return SignOut(new AuthenticationProperties(), CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
+        return SignOut(new AuthenticationProperties(), 
+            CookieAuthenticationDefaults.AuthenticationScheme, 
+            OpenIdConnectDefaults.AuthenticationScheme);
     }
 }

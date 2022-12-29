@@ -1,4 +1,5 @@
 ﻿using EPiServer.DataAccess;
+using EPiServer.Security;
 using EPiServer.Shell.Security;
 using EPiServer.Web.Mvc;
 using Labb.Features.Blocks.CardBlock;
@@ -40,7 +41,7 @@ namespace Labb.Features.News
             {
                 newBlock.Name = randomCharacter.Name;
 
-                _contentRepository.Save(newBlock, SaveAction.Publish);
+                _contentRepository.Save(newBlock, SaveAction.Publish, AccessLevel.NoAccess);
 
                 page.Area ??= new ContentArea();
 
@@ -50,7 +51,15 @@ namespace Labb.Features.News
                 });
             }
 
-            _contentRepository.Save(page, SaveAction.Publish);
+            if (User.Identity is {IsAuthenticated: true})
+            {
+                _contentRepository.Save(page, SaveAction.Publish);
+            }
+            else
+            {
+                _contentRepository.Save(page, SaveAction.Publish, AccessLevel.NoAccess);
+            }
+            
 
             var model = new NewsPageViewModel(page);
             return View("~/Features/News/Index.cshtml", model);
@@ -59,14 +68,17 @@ namespace Labb.Features.News
         public IActionResult DeleteBlock(NewsPage currentPage, int block)
         {
             var page = (NewsPage)currentPage.CreateWritableClone();
-            foreach(var i in page.Area.Items)
+            if(page.Area != null)
             {
-                if (i.ContentLink.ID != block) continue;
-                page.Area.Items.Remove(i);
-                break;
+                foreach(var i in page.Area.Items)
+                {
+                    if (i.ContentLink.ID != block) continue;
+                    page.Area.Items.Remove(i);
+                    break;
+                }
             }
 
-            _contentRepository.Save(page, SaveAction.Publish);
+            _contentRepository.Save(page, SaveAction.Publish, AccessLevel.NoAccess);
 
             var model = new NewsPageViewModel(page);
             return View("~/Features/News/Index.cshtml", model);
@@ -85,7 +97,7 @@ namespace Labb.Features.News
             }
 
             var res = await req.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<CharacterRoot>(res) ?? null;
+            return JsonConvert.DeserializeObject<CharacterRoot>(res) ?? new CharacterRoot();
         }
     }
 }

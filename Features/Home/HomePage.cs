@@ -1,6 +1,7 @@
 ﻿using Labb.Features.Blog.BlogList;
 using Labb.Features.Login;
 using Labb.Features.News;
+using Labb.Features.Register;
 using Labb.Features.Shared;
 using Labb.Features.User.MyProfile;
 
@@ -14,7 +15,8 @@ namespace Labb.Features.Home;
     typeof(BlogListPage), 
     typeof(MyProfilePage), 
     typeof(LoginPage),
-    typeof(NewsPage)})]
+    typeof(NewsPage),
+    typeof(ChatPage)})]
 [ImageUrl("/icons/cms/pages/home-page.png")]
 public class HomePage : LabbPageData
 {

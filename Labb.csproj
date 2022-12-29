@@ -31,6 +31,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <AdditionalFiles Include="Features\Register\Index.cshtml" />
+    <AdditionalFiles Include="Features\Chat\Index.cshtml" />
   </ItemGroup>
 </Project>

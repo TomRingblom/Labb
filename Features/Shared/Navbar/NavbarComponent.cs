@@ -24,8 +24,8 @@ namespace Labb.Features.Shared.Navbar
             var model = new NavbarViewModel
             {
                 NavItems = navItems,
-                SignInUrl = Url.ContentUrl(underRoot.FirstOrDefault()?.ContentLink) + "SignIn",
-                SignOutUrl = Url.ContentUrl(underRoot.FirstOrDefault()?.ContentLink) + "SignOut",
+                SignInUrl = Url.ContentUrl(underRoot.FirstOrDefault()?.ContentLink) + "Login",
+                SignOutUrl = Url.ContentUrl(underRoot.FirstOrDefault()?.ContentLink) + "Logout",
                 MyProfileUrl = Url.ContentUrl(myProfile?.ContentLink)
             };
 

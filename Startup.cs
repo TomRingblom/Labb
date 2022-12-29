@@ -7,6 +7,7 @@ using Geta.NotFoundHandler.Infrastructure.Initialization;
 using Geta.NotFoundHandler.Optimizely.Infrastructure.Configuration;
 using Geta.NotFoundHandler.Optimizely.Infrastructure.Initialization;
 using Labb.Infrastructure.Display;
+using Labb.Infrastructure.Notifications;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -86,7 +87,7 @@ public class Startup
 			    }
 			    //    
 			    //Sync user and the roles to EPiServer in the background
-			    ServiceLocator.Current.GetInstance<ISynchronizingUserService>().SynchronizeAsync(ctx.Principal.Identity as ClaimsIdentity);
+			    ServiceLocator.Current.GetInstance<ISynchronizingUserService>().SynchronizeAsync(ctx.Principal?.Identity as ClaimsIdentity);
 			    return Task.FromResult(0);
 		    };
 	    });
@@ -107,6 +108,8 @@ public class Startup
         {
             o.AutomaticRedirectsEnabled = true;
         });
+
+		services.AddSignalR();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -145,6 +148,7 @@ public class Startup
         {
             endpoints.MapContent();
             endpoints.MapRazorPages();
+			endpoints.MapHub<NotificationHub>("/Register");
         });
     }
 }

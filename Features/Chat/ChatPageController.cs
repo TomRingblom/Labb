@@ -3,23 +3,16 @@ using EPiServer.Web.Mvc;
 using Labb.Features.Shared;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Labb.Features.Register
+namespace Labb.Features.Chat
 {
-    public class RegisterPageController : PageController<RegisterPage>
+    public class ChatPageController : PageController<ChatPage>
     {
-        private readonly UIUserManager _userManager;
-
-        public RegisterPageController(UIUserManager userManager)
+        public IActionResult Index(ChatPage currentPage)
         {
-            _userManager = userManager;
-        }
-
-        public IActionResult Index(RegisterPage currentPage)
-        {
-            var viewModel = new ComposedPageViewModel<RegisterPage, RegisterPageViewModel>
+            var viewModel = new ComposedPageViewModel<ChatPage, ChatPageViewModel>
             {
                 Page = currentPage,
-                ViewModel = new RegisterPageViewModel()
+                ViewModel = new ChatPageViewModel()
             };
             return View("~/Features/Register/Index.cshtml", viewModel);
         }

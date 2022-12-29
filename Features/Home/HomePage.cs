@@ -1,7 +1,7 @@
 ﻿using Labb.Features.Blog.BlogList;
+using Labb.Features.Chat;
 using Labb.Features.Login;
 using Labb.Features.News;
-using Labb.Features.Register;
 using Labb.Features.Shared;
 using Labb.Features.User.MyProfile;
 

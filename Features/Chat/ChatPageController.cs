@@ -12,7 +12,7 @@ namespace Labb.Features.Chat
             var viewModel = new ComposedPageViewModel<ChatPage, ChatPageViewModel>
             {
                 Page = currentPage,
-                ViewModel = new ChatPageViewModel()
+                ViewModel = new ChatPageViewModel(currentPage)
             };
             return View("~/Features/Register/Index.cshtml", viewModel);
         }
